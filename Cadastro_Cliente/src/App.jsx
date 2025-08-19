@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  const validarNome = /^[a-zA-ZÀ-ú\s]+$/;
+  const validarIdade = /^[\d\s]+$/;
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [idade, setIdade] = useState("");
@@ -29,10 +31,16 @@ function App() {
       setErro("Por favor, preencha todos os campos!");
       return;
     }
-    if (isNaN(idade) || Number(idade) <= 0) {
+    if (isNaN(idade) || Number(idade) <= 0 || !validarIdade.test(idade)) {
       setErro("Digite uma idade válida!");
       return;
     }
+
+    if (!validarNome.test(nome) || !validarNome.test(sobrenome)) {
+      setErro("Digite apenas letras nos campos de nome e sobrenome!");
+      return;
+    }
+
     const usuario = { nome, sobrenome, idade: Number(idade) };
 
     if (editIndex !== null) {
@@ -85,7 +93,9 @@ function App() {
       case "cadastro":
         return (
           <div className="pagina">
-            <h1><span className="pizza-icon">🍕</span> Cadastro de Clientes</h1>
+            <h1>
+              <span className="pizza-icon">🍕</span> Cadastro de Clientes
+            </h1>
             <div className="formulario">
               <input
                 type="text"
@@ -115,7 +125,9 @@ function App() {
       case "lista":
         return (
           <div className="pagina">
-            <h1><span className="pizza-icon">🍕</span> Lista de Clientes</h1>
+            <h1>
+              <span className="pizza-icon">🍕</span> Lista de Clientes
+            </h1>
             <div className="filtro">
               <input
                 type="text"
@@ -144,8 +156,12 @@ function App() {
                       <td>{usuario.sobrenome}</td>
                       <td>{usuario.idade}</td>
                       <td>
-                        <button onClick={() => editarUsuario(index)}>Editar</button>
-                        <button onClick={() => removerUsuario(index)}>Remover</button>
+                        <button onClick={() => editarUsuario(index)}>
+                          Editar
+                        </button>
+                        <button onClick={() => removerUsuario(index)}>
+                          Remover
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -159,24 +175,37 @@ function App() {
       case "promocoes":
         return (
           <div className="pagina">
-            <h1><span className="pizza-icon">🍕</span> Promoções Especiais</h1>
+            <h1>
+              <span className="pizza-icon">🍕</span> Promoções Especiais
+            </h1>
             <div className="promocoes">
               <h2>Ofertas da Pizzaria</h2>
               <div className="oferta">
                 <h3>🍕 Pizza Jovem (menores de 18 anos)</h3>
-                <p>15% de desconto em qualquer pizza média + refrigerante grátis!</p>
+                <p>
+                  15% de desconto em qualquer pizza média + refrigerante grátis!
+                </p>
               </div>
               <div className="oferta">
                 <h3>🍕 Pizza Família (18-40 anos)</h3>
-                <p>Pizza grande com borda recheada + 2 refrigerantes por apenas R$ 49,90.</p>
+                <p>
+                  Pizza grande com borda recheada + 2 refrigerantes por apenas
+                  R$ 49,90.
+                </p>
               </div>
               <div className="oferta">
                 <h3>🍕 Pizza Sênior (maiores de 40 anos)</h3>
-                <p>Toda terça-feira: pizza grande com 30% de desconto + sobremesa grátis!</p>
+                <p>
+                  Toda terça-feira: pizza grande com 30% de desconto + sobremesa
+                  grátis!
+                </p>
               </div>
               <div className="oferta destaque">
                 <h3>⭐ Oferta Especial da Casa</h3>
-                <p>Todo cliente cadastrado ganha 10% de desconto na primeira compra!</p>
+                <p>
+                  Todo cliente cadastrado ganha 10% de desconto na primeira
+                  compra!
+                </p>
               </div>
             </div>
           </div>
@@ -194,7 +223,7 @@ function App() {
         </div>
         <ul>
           <li>
-            <button 
+            <button
               className={paginaAtual === "cadastro" ? "ativo" : ""}
               onClick={() => setPaginaAtual("cadastro")}
             >
@@ -202,7 +231,7 @@ function App() {
             </button>
           </li>
           <li>
-            <button 
+            <button
               className={paginaAtual === "lista" ? "ativo" : ""}
               onClick={() => setPaginaAtual("lista")}
             >
@@ -210,7 +239,7 @@ function App() {
             </button>
           </li>
           <li>
-            <button 
+            <button
               className={paginaAtual === "promocoes" ? "ativo" : ""}
               onClick={() => setPaginaAtual("promocoes")}
             >
@@ -219,10 +248,8 @@ function App() {
           </li>
         </ul>
       </nav>
-      
-      <div className="container">
-        {renderizarConteudo()}
-      </div>
+
+      <div className="container">{renderizarConteudo()}</div>
     </div>
   );
 }
