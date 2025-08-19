@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
+  // Expressões regulares para validação
   const validarNome = /^[a-zA-ZÀ-ú\s]+$/;
   const validarIdade = /^[\d\s]+$/;
+  
+  // Estados do componente
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [idade, setIdade] = useState("");
@@ -13,7 +16,7 @@ function App() {
   const [busca, setBusca] = useState("");
   const [paginaAtual, setPaginaAtual] = useState("cadastro");
 
-  // Carregar usuários do localStorage ao iniciar
+  // Carrega usuários do localStorage ao inicializar
   useEffect(() => {
     const dados = localStorage.getItem("usuarios");
     if (dados) {
@@ -21,21 +24,26 @@ function App() {
     }
   }, []);
 
-  // Atualizar localStorage sempre que a lista mudar
+  // Salva usuários no localStorage quando a lista é alterada
   useEffect(() => {
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
   }, [usuarios]);
 
+  // Adiciona ou edita um usuário com validações
   const adicionarOuEditarUsuario = () => {
+    // Valida campos obrigatórios
     if (nome === "" || sobrenome === "" || idade === "") {
       setErro("Por favor, preencha todos os campos!");
       return;
     }
+    
+    // Valida idade
     if (isNaN(idade) || Number(idade) <= 0 || !validarIdade.test(idade)) {
       setErro("Digite uma idade válida!");
       return;
     }
 
+    // Valida nome e sobrenome (apenas letras)
     if (!validarNome.test(nome) || !validarNome.test(sobrenome)) {
       setErro("Digite apenas letras nos campos de nome e sobrenome!");
       return;
@@ -43,6 +51,7 @@ function App() {
 
     const usuario = { nome, sobrenome, idade: Number(idade) };
 
+    // Edita usuário existente ou adiciona novo
     if (editIndex !== null) {
       const novosUsuarios = [...usuarios];
       novosUsuarios[editIndex] = usuario;
@@ -51,12 +60,15 @@ function App() {
     } else {
       setUsuarios([...usuarios, usuario]);
     }
+    
+    // Limpa campos após operação
     setNome("");
     setSobrenome("");
     setIdade("");
     setErro("");
   };
 
+  // Preenche formulário para edição
   const editarUsuario = (index) => {
     const usuario = usuarios[index];
     setNome(usuario.nome);
@@ -66,9 +78,12 @@ function App() {
     setPaginaAtual("cadastro");
   };
 
+  // Remove usuário da lista
   const removerUsuario = (index) => {
     const novosUsuarios = usuarios.filter((_, i) => i !== index);
     setUsuarios(novosUsuarios);
+    
+    // Limpa formulário se estava editando o item removido
     if (editIndex === index) {
       setNome("");
       setSobrenome("");
@@ -77,25 +92,25 @@ function App() {
     }
   };
 
+  // Filtra usuários conforme texto de busca
   const usuariosFiltrados = usuarios.filter((u) =>
     u.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
+  // Define cor de fundo conforme a idade
   const corPorIdade = (idade) => {
     if (idade < 18) return "#FFE082"; // Amarelo claro - mais jovem
     if (idade <= 40) return "#A5D6A7"; // Verde claro - adulto
     return "#EF9A9A"; // Vermelho claro - mais experiente
   };
 
-  // Renderizar conteúdo com base na página atual
+  // Renderiza conteúdo conforme a página atual
   const renderizarConteudo = () => {
     switch (paginaAtual) {
       case "cadastro":
         return (
           <div className="pagina">
-            <h1>
-              <span className="pizza-icon">🍕</span> Cadastro de Clientes
-            </h1>
+            <h1><span className="pizza-icon">🍕</span> Cadastro de Clientes</h1>
             <div className="formulario">
               <input
                 type="text"
@@ -125,9 +140,7 @@ function App() {
       case "lista":
         return (
           <div className="pagina">
-            <h1>
-              <span className="pizza-icon">🍕</span> Lista de Clientes
-            </h1>
+            <h1><span className="pizza-icon">🍕</span> Lista de Clientes</h1>
             <div className="filtro">
               <input
                 type="text"
@@ -156,12 +169,8 @@ function App() {
                       <td>{usuario.sobrenome}</td>
                       <td>{usuario.idade}</td>
                       <td>
-                        <button onClick={() => editarUsuario(index)}>
-                          Editar
-                        </button>
-                        <button onClick={() => removerUsuario(index)}>
-                          Remover
-                        </button>
+                        <button onClick={() => editarUsuario(index)}>Editar</button>
+                        <button onClick={() => removerUsuario(index)}>Remover</button>
                       </td>
                     </tr>
                   ))}
@@ -175,37 +184,24 @@ function App() {
       case "promocoes":
         return (
           <div className="pagina">
-            <h1>
-              <span className="pizza-icon">🍕</span> Promoções Especiais
-            </h1>
+            <h1><span className="pizza-icon">🍕</span> Promoções Especiais</h1>
             <div className="promocoes">
               <h2>Ofertas da Pizzaria</h2>
               <div className="oferta">
                 <h3>🍕 Pizza Jovem (menores de 18 anos)</h3>
-                <p>
-                  15% de desconto em qualquer pizza média + refrigerante grátis!
-                </p>
+                <p>15% de desconto em qualquer pizza média + refrigerante grátis!</p>
               </div>
               <div className="oferta">
                 <h3>🍕 Pizza Família (18-40 anos)</h3>
-                <p>
-                  Pizza grande com borda recheada + 2 refrigerantes por apenas
-                  R$ 49,90.
-                </p>
+                <p>Pizza grande com borda recheada + 2 refrigerantes por apenas R$ 49,90.</p>
               </div>
               <div className="oferta">
                 <h3>🍕 Pizza Sênior (maiores de 40 anos)</h3>
-                <p>
-                  Toda terça-feira: pizza grande com 30% de desconto + sobremesa
-                  grátis!
-                </p>
+                <p>Toda terça-feira: pizza grande com 30% de desconto + sobremesa grátis!</p>
               </div>
               <div className="oferta destaque">
                 <h3>⭐ Oferta Especial da Casa</h3>
-                <p>
-                  Todo cliente cadastrado ganha 10% de desconto na primeira
-                  compra!
-                </p>
+                <p>Todo cliente cadastrado ganha 10% de desconto na primeira compra!</p>
               </div>
             </div>
           </div>
@@ -223,7 +219,7 @@ function App() {
         </div>
         <ul>
           <li>
-            <button
+            <button 
               className={paginaAtual === "cadastro" ? "ativo" : ""}
               onClick={() => setPaginaAtual("cadastro")}
             >
@@ -231,7 +227,7 @@ function App() {
             </button>
           </li>
           <li>
-            <button
+            <button 
               className={paginaAtual === "lista" ? "ativo" : ""}
               onClick={() => setPaginaAtual("lista")}
             >
@@ -239,7 +235,7 @@ function App() {
             </button>
           </li>
           <li>
-            <button
+            <button 
               className={paginaAtual === "promocoes" ? "ativo" : ""}
               onClick={() => setPaginaAtual("promocoes")}
             >
@@ -248,8 +244,10 @@ function App() {
           </li>
         </ul>
       </nav>
-
-      <div className="container">{renderizarConteudo()}</div>
+      
+      <div className="container">
+        {renderizarConteudo()}
+      </div>
     </div>
   );
 }
