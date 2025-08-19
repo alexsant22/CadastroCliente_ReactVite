@@ -1,49 +1,222 @@
-.container {
-  text-align: center;
-  margin-top: 30px;
-  font-family: Arial, sans-serif;
+/* Estilos gerais */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
 }
-input {
-  padding: 8px;
-  font-size: 16px;
-  margin: 5px;
-  width: 180px;
-}
-button {
-  padding: 8px 15px;
-  font-size: 14px;
-  margin: 5px;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #ddd;
-}
-p.erro {
-  color: red;
-  font-size: 16px;
 
-  margin-top: 10px;
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }
-.filtro input {
+
+/* Menu superior */
+.menu-superior {
+  background-color: #2c3e50;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.menu-superior ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu-superior li {
+  margin: 0;
+}
+
+.menu-superior button {
+  background: none;
+  border: none;
+  color: #ecf0f1;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.menu-superior button:hover {
+  background-color: #34495e;
+}
+
+.menu-superior button.ativo {
+  background-color: #3498db;
+  font-weight: bold;
+}
+
+/* Páginas */
+.pagina {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   margin-top: 20px;
-  padding: 8px;
-  width: 200px;
-  font-size: 14px;
 }
-table {
-  margin: 20px auto;
-  border-collapse: collapse;
-  width: 80%;
+
+.pagina h1 {
+  color: #2c3e50;
+  margin-top: 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
 }
-th,
-td {
-  border: 1px solid #333;
+
+/* Formulário */
+.formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.formulario input {
   padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.input-form{
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.formulario button {
+  grid-column: span 2;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.formulario button:hover {
+  background-color: #2980b9;
+}
+
+.erro {
+  grid-column: span 2;
+  color: #e74c3c;
+  background-color: #fadbd8;
+  padding: 10px;
+  border-radius: 4px;
   text-align: center;
 }
+
+/* Tabela */
+.filtro {
+  margin-bottom: 20px;
+}
+
+.filtro input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
 th {
   background-color: #f2f2f2;
+  font-weight: bold;
 }
+
 tr:hover {
-  opacity: 0.8;
+  background-color: #f9f9f9;
+}
+
+table button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+table button:last-child {
+  background-color: #e74c3c;
+}
+
+table button:hover {
+  opacity: 0.9;
+}
+
+.sem-dados {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Promoções */
+.promocoes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.oferta {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.oferta h3 {
+  color: #2c3e50;
+  margin-top: 0;
+}
+
+.oferta p {
+  color: #7f8c8d;
+  line-height: 1.6;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+  
+  .formulario button {
+    grid-column: span 1;
+  }
+  
+  .erro {
+    grid-column: span 1;
+  }
+  
+  .menu-superior ul {
+    flex-direction: column;
+  }
+  
+  .menu-superior button {
+    width: 100%;
+    text-align: left;
+  }
 }
