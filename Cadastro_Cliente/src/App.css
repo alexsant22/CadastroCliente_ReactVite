@@ -3,8 +3,9 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: #FFF8F0;
   color: #333;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L0 25L50 0L100 25L50 50Z' fill='%23f8d7d7' fill-opacity='0.1'/%3E%3C/svg%3E");
 }
 
 .container {
@@ -15,9 +16,25 @@ body {
 
 /* Menu superior */
 .menu-superior {
-  background-color: #2c3e50;
-  padding: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(to right, #E31837, #FF3B3F);
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.pizza-icon {
+  margin-right: 10px;
+  font-size: 28px;
 }
 
 .menu-superior ul {
@@ -34,167 +51,207 @@ body {
 .menu-superior button {
   background: none;
   border: none;
-  color: #ecf0f1;
-  padding: 15px 20px;
+  color: white;
+  padding: 20px 25px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
+  font-weight: 500;
 }
 
 .menu-superior button:hover {
-  background-color: #34495e;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .menu-superior button.ativo {
-  background-color: #3498db;
+  background-color: white;
+  color: #E31837;
   font-weight: bold;
 }
 
 /* Páginas */
 .pagina {
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin-top: 20px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+  margin-top: 25px;
+  border: 1px solid #FFE5E5;
 }
 
 .pagina h1 {
-  color: #2c3e50;
+  color: #E31837;
   margin-top: 0;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
+  border-bottom: 2px solid #FFE5E5;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
 }
 
 /* Formulário */
 .formulario {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 20px;
   margin-bottom: 20px;
 }
 
 .formulario input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid #FFE5E5;
+  border-radius: 8px;
   font-size: 16px;
+  transition: border-color 0.3s;
 }
 
-.input-form{
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+.formulario input:focus {
+  border-color: #E31837;
+  outline: none;
 }
 
 .formulario button {
   grid-column: span 2;
-  background-color: #3498db;
+  background: linear-gradient(to right, #E31837, #FF5A5F);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 4px;
+  padding: 15px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(227, 24, 55, 0.3);
 }
 
 .formulario button:hover {
-  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(227, 24, 55, 0.4);
 }
 
 .erro {
   grid-column: span 2;
-  color: #e74c3c;
-  background-color: #fadbd8;
-  padding: 10px;
-  border-radius: 4px;
+  color: #D32F2F;
+  background-color: #FFEBEE;
+  padding: 12px;
+  border-radius: 8px;
   text-align: center;
+  border-left: 4px solid #D32F2F;
 }
 
 /* Tabela */
 .filtro {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .filtro input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid #FFE5E5;
+  border-radius: 8px;
   font-size: 16px;
+}
+
+.filtro input:focus {
+  border-color: #E31837;
+  outline: none;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 th, td {
-  padding: 12px;
+  padding: 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #FFE5E5;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #FCE4EC;
   font-weight: bold;
+  color: #E31837;
 }
 
 tr:hover {
-  background-color: #f9f9f9;
+  background-color: #FFF8F0;
 }
 
 table button {
-  background-color: #3498db;
+  background-color: #E31837;
   color: white;
   border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 8px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 8px;
   font-size: 14px;
+  transition: background-color 0.2s;
 }
 
 table button:last-child {
-  background-color: #e74c3c;
+  background-color: #9E9E9E;
 }
 
 table button:hover {
-  opacity: 0.9;
+  background-color: #C2185B;
+}
+
+table button:last-child:hover {
+  background-color: #757575;
 }
 
 .sem-dados {
   text-align: center;
-  color: #7f8c8d;
+  color: #9E9E9E;
   font-style: italic;
-  padding: 20px;
+  padding: 30px;
+  background-color: #FFF8F0;
+  border-radius: 8px;
+  border: 2px dashed #FFE5E5;
 }
 
 /* Promoções */
 .promocoes {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 25px;
 }
 
 .oferta {
-  background-color: #f8f9fa;
+  background-color: #FFF8F0;
   padding: 20px;
-  border-radius: 8px;
-  border-left: 4px solid #3498db;
+  border-radius: 10px;
+  border-left: 5px solid #E31837;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.oferta:hover {
+  transform: translateY(-3px);
+}
+
+.oferta.destaque {
+  background: linear-gradient(to right, #FFF8F0, #FFEBEE);
+  border-left: 5px solid #FF3B3F;
+  box-shadow: 0 5px 15px rgba(227, 24, 55, 0.15);
 }
 
 .oferta h3 {
-  color: #2c3e50;
+  color: #E31837;
   margin-top: 0;
+  display: flex;
+  align-items: center;
 }
 
 .oferta p {
-  color: #7f8c8d;
+  color: #616161;
   line-height: 1.6;
+  margin-bottom: 0;
 }
 
 /* Responsividade */
@@ -211,12 +268,23 @@ table button:hover {
     grid-column: span 1;
   }
   
-  .menu-superior ul {
+  .menu-superior {
     flex-direction: column;
+    padding: 10px;
+  }
+  
+  .menu-superior ul {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
   }
   
   .menu-superior button {
-    width: 100%;
-    text-align: left;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .logo {
+    font-size: 18px;
   }
 }

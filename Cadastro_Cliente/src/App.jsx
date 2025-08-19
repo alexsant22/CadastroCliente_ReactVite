@@ -9,7 +9,7 @@ function App() {
   const [erro, setErro] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [busca, setBusca] = useState("");
-  const [paginaAtual, setPaginaAtual] = useState("cadastro"); // Estado para controlar a página atual
+  const [paginaAtual, setPaginaAtual] = useState("cadastro");
 
   // Carregar usuários do localStorage ao iniciar
   useEffect(() => {
@@ -55,7 +55,7 @@ function App() {
     setSobrenome(usuario.sobrenome);
     setIdade(usuario.idade);
     setEditIndex(index);
-    setPaginaAtual("cadastro"); // Redireciona para a página de cadastro ao editar
+    setPaginaAtual("cadastro");
   };
 
   const removerUsuario = (index) => {
@@ -74,9 +74,9 @@ function App() {
   );
 
   const corPorIdade = (idade) => {
-    if (idade < 18) return "#f9c74f";
-    if (idade <= 40) return "#90be6d";
-    return "#f94144";
+    if (idade < 18) return "#FFE082"; // Amarelo claro - mais jovem
+    if (idade <= 40) return "#A5D6A7"; // Verde claro - adulto
+    return "#EF9A9A"; // Vermelho claro - mais experiente
   };
 
   // Renderizar conteúdo com base na página atual
@@ -85,30 +85,28 @@ function App() {
       case "cadastro":
         return (
           <div className="pagina">
-            <h1>Cadastro de Usuários</h1>
+            <h1><span className="pizza-icon">🍕</span> Cadastro de Clientes</h1>
             <div className="formulario">
-              <div className="input-form">
-                <input
-                  type="text"
-                  placeholder="Nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Sobrenome"
-                  value={sobrenome}
-                  onChange={(e) => setSobrenome(e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Idade"
-                  value={idade}
-                  onChange={(e) => setIdade(e.target.value)}
-                />
-              </div>
+              <input
+                type="text"
+                placeholder="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Sobrenome"
+                value={sobrenome}
+                onChange={(e) => setSobrenome(e.target.value)}
+              />
+              <input
+                type="number"
+                placeholder="Idade"
+                value={idade}
+                onChange={(e) => setIdade(e.target.value)}
+              />
               <button onClick={adicionarOuEditarUsuario}>
-                {editIndex !== null ? "Atualizar" : "Adicionar"}
+                {editIndex !== null ? "Atualizar Cliente" : "Adicionar Cliente"}
               </button>
               {erro && <p className="erro">{erro}</p>}
             </div>
@@ -117,11 +115,11 @@ function App() {
       case "lista":
         return (
           <div className="pagina">
-            <h1>Lista de Clientes</h1>
+            <h1><span className="pizza-icon">🍕</span> Lista de Clientes</h1>
             <div className="filtro">
               <input
                 type="text"
-                placeholder="Buscar por nome..."
+                placeholder="Buscar cliente por nome..."
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
               />
@@ -146,12 +144,8 @@ function App() {
                       <td>{usuario.sobrenome}</td>
                       <td>{usuario.idade}</td>
                       <td>
-                        <button onClick={() => editarUsuario(index)}>
-                          Editar
-                        </button>
-                        <button onClick={() => removerUsuario(index)}>
-                          Remover
-                        </button>
+                        <button onClick={() => editarUsuario(index)}>Editar</button>
+                        <button onClick={() => removerUsuario(index)}>Remover</button>
                       </td>
                     </tr>
                   ))}
@@ -165,29 +159,24 @@ function App() {
       case "promocoes":
         return (
           <div className="pagina">
-            <h1>Promoções</h1>
+            <h1><span className="pizza-icon">🍕</span> Promoções Especiais</h1>
             <div className="promocoes">
-              <h2>Ofertas Especiais</h2>
+              <h2>Ofertas da Pizzaria</h2>
               <div className="oferta">
-                <h3>Desconto para Compras no PIX</h3>
-                <p>
-                  Clientes com pagamentos efetuados no PIX ganham 3% de desconto
-                  em todos os serviços!
-                </p>
+                <h3>🍕 Pizza Jovem (menores de 18 anos)</h3>
+                <p>15% de desconto em qualquer pizza média + refrigerante grátis!</p>
               </div>
               <div className="oferta">
-                <h3>Brinde ao Comprar</h3>
-                <p>
-                  Para clientes que comprar duas pizzas grandes recebe, um
-                  refrigerante 2L.
-                </p>
+                <h3>🍕 Pizza Família (18-40 anos)</h3>
+                <p>Pizza grande com borda recheada + 2 refrigerantes por apenas R$ 49,90.</p>
               </div>
               <div className="oferta">
-                <h3>Cuidado Senior</h3>
-                <p>
-                  Clientes acima de 40 anos têm frete grátis para qualquer
-                  endereço.
-                </p>
+                <h3>🍕 Pizza Sênior (maiores de 40 anos)</h3>
+                <p>Toda terça-feira: pizza grande com 30% de desconto + sobremesa grátis!</p>
+              </div>
+              <div className="oferta destaque">
+                <h3>⭐ Oferta Especial da Casa</h3>
+                <p>Todo cliente cadastrado ganha 10% de desconto na primeira compra!</p>
               </div>
             </div>
           </div>
@@ -200,9 +189,12 @@ function App() {
   return (
     <div className="App">
       <nav className="menu-superior">
+        <div className="logo">
+          <span className="pizza-icon">🍕</span> Pizzaria Bella Senai
+        </div>
         <ul>
           <li>
-            <button
+            <button 
               className={paginaAtual === "cadastro" ? "ativo" : ""}
               onClick={() => setPaginaAtual("cadastro")}
             >
@@ -210,15 +202,15 @@ function App() {
             </button>
           </li>
           <li>
-            <button
+            <button 
               className={paginaAtual === "lista" ? "ativo" : ""}
               onClick={() => setPaginaAtual("lista")}
             >
-              Lista de Clientes
+              Clientes
             </button>
           </li>
           <li>
-            <button
+            <button 
               className={paginaAtual === "promocoes" ? "ativo" : ""}
               onClick={() => setPaginaAtual("promocoes")}
             >
@@ -227,8 +219,10 @@ function App() {
           </li>
         </ul>
       </nav>
-
-      <div className="container">{renderizarConteudo()}</div>
+      
+      <div className="container">
+        {renderizarConteudo()}
+      </div>
     </div>
   );
 }
